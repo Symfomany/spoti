@@ -1,32 +1,35 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
-  </div>
+  <v-app>
+    <v-main class="background">
+      <v-btn
+        v-if="$route.name === 'artist'"
+        class="ma-6"
+        fab
+        large
+        color="teal lighten-5"
+        to="/"
+        ><v-icon>mdi-arrow-left</v-icon>
+      </v-btn>
+      <v-container fill-height fluid>
+        <router-view />
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+export default {
+  name: "App",
+};
+</script>
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+<style scoped>
+.background {
+  background: rgb(156, 156, 118);
+  background: linear-gradient(
+    45deg,
+    rgba(156, 156, 118, 1) 18%,
+    rgba(51, 136, 168, 1) 100%
+  );
 }
 </style>
