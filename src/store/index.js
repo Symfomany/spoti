@@ -20,7 +20,7 @@ export default new Vuex.Store({
         title: 'Black Lungs',
         url: 'musics/Black Lungs.mp3',
         cover: 'Architects.jpg',
-        favorite: true,
+        favorite: false,
       },
       {
         id: 3,
@@ -31,8 +31,7 @@ export default new Vuex.Store({
         favorite: false,
       },
     ],
-    isFavorite: false,
-    item: {},
+    isFavorite: true,
   },
   mutations: {
     ADD_TO_FAVORITE(state, key) {
@@ -44,9 +43,6 @@ export default new Vuex.Store({
     CHECKED_IS_FAVORITE(state, isFavorite) {
       state.isFavorite = isFavorite;
     },
-    SET_ITEM(state, key) {
-      state.item = state.playlist[key];
-    },
   },
   actions: {
     addToFavorite({ commit }, payload) {
@@ -57,9 +53,6 @@ export default new Vuex.Store({
     },
     isFavoriteCheck({ commit }, isFavorite) {
       commit('CHECKED_IS_FAVORITE', isFavorite);
-    },
-    setItem({ commit }, key) {
-      commit('SET_ITEM', key);
     },
   },
 });

@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto" min-width="350" width="450" color="teal lighten-5">
+  <v-card class="mx-auto border-radius" elevation="6" min-width="325" width="450" color="teal lighten-5">
     <v-img height="250" :src="require('../assets/images/' + artist.cover)" />
     <v-card-title>{{ artist.artist }}</v-card-title>
   </v-card>
