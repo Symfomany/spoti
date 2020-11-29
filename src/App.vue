@@ -5,7 +5,6 @@
         v-if="$route.name === 'artist'"
         class="ma-6"
         fab
-        large
         color="teal lighten-5"
         to="/"
         ><v-icon>mdi-arrow-left</v-icon>
@@ -23,7 +22,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .background {
   background: rgb(156, 156, 118);
   background: linear-gradient(
@@ -31,5 +30,8 @@ export default {
     rgba(156, 156, 118, 1) 18%,
     rgba(51, 136, 168, 1) 100%
   );
+}
+.border-radius {
+  border-radius: 30px !important;
 }
 </style>
