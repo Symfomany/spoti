@@ -31,7 +31,6 @@ export default new Vuex.Store({
         favorite: false,
       },
     ],
-    isFavorite: true,
   },
   mutations: {
     ADD_TO_FAVORITE(state, key) {
@@ -40,9 +39,6 @@ export default new Vuex.Store({
     REMOVE_TO_FAVORITE(state, key) {
       state.playlist[key].favorite = false;
     },
-    CHECKED_IS_FAVORITE(state, isFavorite) {
-      state.isFavorite = isFavorite;
-    },
   },
   actions: {
     addToFavorite({ commit }, payload) {
@@ -50,9 +46,6 @@ export default new Vuex.Store({
     },
     removeToFavorite({ commit }, payload) {
       commit('REMOVE_TO_FAVORITE', payload);
-    },
-    isFavoriteCheck({ commit }, isFavorite) {
-      commit('CHECKED_IS_FAVORITE', isFavorite);
     },
   },
 });

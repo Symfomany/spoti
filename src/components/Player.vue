@@ -169,12 +169,9 @@ export default {
     };
   },
   computed: {
-    ...mapState(["playlist", "isFavorite"]),
+    ...mapState(["playlist"]),
     favorites() {
-      if (this.isFavorite) {
-        return this.playlist.filter((item) => item.favorite === true);
-      }
-      return this.playlist;
+      return this.playlist.filter((item) => item.favorite === true);
     },
     trackProgression: {
       get() {
@@ -268,13 +265,9 @@ export default {
     },
     addFavorite(favorite) {
       this.$store.dispatch("addToFavorite", favorite);
-      console.log(favorite);
-      console.log(this.current.favorite);
     },
     removeFavorite(favorite) {
       this.$store.dispatch("removeToFavorite", favorite);
-      console.log(favorite);
-      console.log(this.current.favorite);
     },
   },
 };
