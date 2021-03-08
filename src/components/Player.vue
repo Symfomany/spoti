@@ -1,10 +1,10 @@
 <template>
   <v-card
     class="mx-auto border-radius"
-    min-width="325"
-    width="450"
-    color="teal lighten-5"
-    elevation="6"
+    min-width="225"
+    width="650"
+    color="pink"
+    elevation="8"
   >
     <v-img height="250" :src="require('../assets/images/' + current.cover)" />
     <div class="px-6 py-4">

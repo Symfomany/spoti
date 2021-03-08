@@ -39,6 +39,9 @@ export default new Vuex.Store({
     REMOVE_TO_FAVORITE(state, key) {
       state.playlist[key].favorite = false;
     },
+    ADD_PLAYLIST(state, song) {
+      state.playlist = [...state.playlist, { ...song, id: state.playlist.length }]
+    },
   },
   actions: {
     addToFavorite({ commit }, payload) {
@@ -46,6 +49,9 @@ export default new Vuex.Store({
     },
     removeToFavorite({ commit }, payload) {
       commit('REMOVE_TO_FAVORITE', payload);
+    },
+    addToPlaylist({ commit }, song) {
+      commit('ADD_PLAYLIST', song);
     },
   },
 });
