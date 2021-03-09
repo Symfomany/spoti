@@ -1,10 +1,14 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import { vuexfireMutations } from 'vuexfire'
+import { db } from '../components/connexion.js'
+
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    favoris: [],
     playlist: [
       {
         id: 1,
@@ -33,6 +37,7 @@ export default new Vuex.Store({
     ],
   },
   mutations: {
+     ...vuexfireMutations,
     ADD_TO_FAVORITE(state, key) {
       state.playlist[key].favorite = true;
     },
@@ -42,9 +47,25 @@ export default new Vuex.Store({
     ADD_PLAYLIST(state, song) {
       state.playlist = [...state.playlist, { ...song, id: state.playlist.length }]
     },
+    LOAD_FAVORITES ( state, datas )
+    {
+      state.favoris = [...datas]
+    }
   },
   actions: {
-    addToFavorite({ commit }, payload) {
+    loadFavoris ( { commit } )
+    {
+      db.ref( '/favoris' ).on( 'value', (snap) =>
+      {
+        const data = snap.val();
+        console.log(data)
+         commit('LOAD_FAVORITES', data);
+      })
+      
+     
+    },
+    addToFavorite ( { commit }, payload )
+    {
       commit('ADD_TO_FAVORITE', payload);
     },
     removeToFavorite({ commit }, payload) {
