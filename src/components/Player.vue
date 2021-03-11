@@ -44,7 +44,7 @@
               fab
               small
               class="ml-n3 mr-2"
-              @click="addFavorite(current.id - 1)"
+              @click="addFavorite(current)"
             >
               <v-icon>mdi-heart</v-icon>
             </v-btn>
@@ -138,15 +138,20 @@
       </span>
       <span v-else>00:00 / 00:00</span>
     </div>
+
+    <Comments></Comments>
   </v-card>
 </template>
 
 <script>
 import { mapState } from "vuex";
 import KnobControl from "vue-knob-control";
+import Comments from "./Comments";
+
 export default {
   components: {
     KnobControl,
+    Comments,
   },
   data() {
     return {

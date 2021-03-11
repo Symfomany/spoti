@@ -8,6 +8,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    comments: [],
     favoris: [],
     playlist: [
       {
@@ -38,11 +39,18 @@ export default new Vuex.Store({
   },
   mutations: {
      ...vuexfireMutations,
-    ADD_TO_FAVORITE(state, key) {
-      state.playlist[key].favorite = true;
+    ADD_COMMENTS ( state, comment )
+    {
+      state.comments = [...state.comments, { ...comment, id: state.comments.length }]
+    },
+    
+    ADD_TO_FAVORITE ( state, song )
+    {
+      state.favoris = [...state.favoris, { ...song, id: state.favoris.length }]
     },
     REMOVE_TO_FAVORITE(state, key) {
       state.playlist[key].favorite = false;
+      
     },
     ADD_PLAYLIST(state, song) {
       state.playlist = [...state.playlist, { ...song, id: state.playlist.length }]
@@ -50,6 +58,14 @@ export default new Vuex.Store({
     LOAD_FAVORITES ( state, datas )
     {
       state.favoris = [...datas]
+    },
+    LOAD_COMMENTS ( state, datas )
+    {
+      state.comments = [...datas]
+    },
+    EDIT_COMMENTS ( state, datas )
+    {
+      state.comments[datas.id] =  datas 
     }
   },
   actions: {
@@ -58,18 +74,37 @@ export default new Vuex.Store({
       db.ref( '/favoris' ).on( 'value', (snap) =>
       {
         const data = snap.val();
-        console.log(data)
          commit('LOAD_FAVORITES', data);
       })
-      
-     
     },
-    addToFavorite ( { commit }, payload )
+    loadComments ( { commit } )
     {
-      commit('ADD_TO_FAVORITE', payload);
+      db.ref( '/comments' ).on( 'value', (snap) =>
+      {
+        const data = snap.val();
+         commit('LOAD_COMMENTS', data);
+      })
     },
-    removeToFavorite({ commit }, payload) {
-      commit('REMOVE_TO_FAVORITE', payload);
+    addToFavorite ( { commit, state }, payload )
+    {
+      commit( 'ADD_TO_FAVORITE', payload );
+      db.ref( '/favoris' ).set( state.favoris )
+    },
+    addComment ( { commit }, payload )
+    {
+      commit( 'ADD_COMMENTS', payload );
+      const key = db.ref().child( 'comments' ).push().key;
+      db.ref('comments').child( key ).update( { content: payload } );
+    },
+    editComment ( { commit }, payload )
+    {
+      commit( 'EDIT_COMMENTS', payload );
+      db.ref('comments').child( payload.id ).update( { content: payload.content } );
+    },
+    
+    removeToFavorite({ commit, state }, payload) {
+      commit( 'REMOVE_TO_FAVORITE', payload );
+      db.ref( '/favoris' ).set(state.favoris)
     },
     addToPlaylist({ commit }, song) {
       commit('ADD_PLAYLIST', song);
